@@ -14,12 +14,17 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($client)
+    public function index()
     {
-        return Order::where('client_id',$client)->get();
+        return Order::all();
     }
 
-    public function store($client, Request $request)
+    public function orderClient($id)
+    {
+        return Order::where('client_id',$id)->get();
+    }
+
+    public function store(Request $request)
     {
         $request->validate([
             'date' => 'required|date',
@@ -28,9 +33,10 @@ class OrderController extends Controller
         $order = new Order();
         $order->date = $request->date;
         $order->status = $request->status;
-        $order->client_id = $client;
+        $order->client_id = $request->id;
         $products = [];
 
+        //VERIFICAR SE OS PRODUTOS EXISTEM
         foreach($request->products as $id){
             $product = Product::findOrFail($id);
             array_push($products, $product);
@@ -43,25 +49,25 @@ class OrderController extends Controller
         }
     }
 
-    public function update(Request $request, $client)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'status' => 'required',
         ]);
-        $order = Order::findOrFail($request->id);
+        $order = Order::findOrFail($id);
         $order->status = $request->status;
         $order->save();
     }
 
-    public function show($client, $order)
+    public function show($id)
     {
-        return Order::where('client_id',$client)->where('id',$order)->first();
+        return Order::where('client_id',$id)->first();
     }
 
-    public function destroy($client, $order)
+    public function destroy(Request $request, $id)
     {
-        $order = Order::findOrFail($order);
-        if($order->client_id == $client){
+        $order = Order::findOrFail($id);
+        if($order->client_id == $request->id_logado){
             $order->delete();
         }
     }

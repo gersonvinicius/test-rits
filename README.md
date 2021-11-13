@@ -1,5 +1,8 @@
 # Tutorial do projeto
 
+## Primeiramente clonar o projeto na máquina
+git clone https://github.com/gersonvinicius/test-rits.git
+
 ## Dados do banco
 Criar um banco de dados, e definir as configurações no arquivo .env
 
@@ -55,15 +58,21 @@ Para cadastrar um cliente foi utilizado nos testes o postman como software, mas 
 Para cadastrar um pedido foi utilizado nos testes o postman como software, mas basta enviar os dados pela url do navegador
 
 ## Urls de teste - 
-    LISTAGEM - MÉTODO GET - 1 = id do client "logado"
-    http://127.0.0.1:8000/api/orders/1
+    LISTAGEM - MÉTODO GET - retorna todos os pedidos
+    http://127.0.0.1:8000/api/orders
 
-    CADASTRO - MÉTODO POST - 1 = id do client "logado" 
-    --- LEMBRANDO QUE OS PRODUTOS PRECISAM EXISTIR ANTES --- 
-    http://127.0.0.1:8000/api/orders/1/store?date=2020-10-10&products[]=1&products[]=2
+    LISTAGEM POR CLIENTE - retorna os pedido do client especifico - 2 é o id do client 
+    http://127.0.0.1:8000/api/orders/list/2
 
-    VER - MÉTODO GET - 1 = id do client "logado" e após o show é o numero do pedido pra visualizar
-    http://127.0.0.1:8000/api/orders/1/show/1 
+    CADASTRO - MÉTODO POST id = id do client do pedido
+    --- LEMBRANDO QUE OS PRODUTOS E O CLIENTE PRECISAM EXISTIR ANTES --- 
+    http://127.0.0.1:8000/api/orders?date=2020-10-05&status=Em preparo&products[]=1&products[]=2&id=2
 
-    DELETAR - MÉTODO DELETE - 1 id do client "logado" e após o delete o 1 é o pedido a ser deletado, lembrando que o pedido tem que ser do client logado
-    http://127.0.0.1:8000/api/orders/1/delete/1 
+    UPDATE - MÉTODO PUT
+    http://127.0.0.1:8000/api/orders/2?status=Entrega
+
+    VER - MÉTODO GET - 2 é o id do pedido
+    http://127.0.0.1:8000/api/orders/2
+
+    DELETAR - MÉTODO DELETE - 2 é o pedido a ser deletado e id_logado é o usuário logado, ambos valores precisam ser iguais pra exclusão acontecer
+    http://127.0.0.1:8000/api/orders/2?id_logado=2
