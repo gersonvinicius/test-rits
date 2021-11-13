@@ -23,3 +23,4 @@ Route::get('orders/{client}','App\Http\Controllers\api\OrderController@index');
 Route::get('orders/{client}/show/{order}','App\Http\Controllers\api\OrderController@show');
 Route::post('orders/{client}/store','App\Http\Controllers\api\OrderController@store');
 Route::get('orders/{client}/delete/{order}','App\Http\Controllers\api\OrderController@destroy');
+Route::post('orders/update/{order}','App\Http\Controllers\api\OrderController@update');

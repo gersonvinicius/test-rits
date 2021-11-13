@@ -23,9 +23,11 @@ class OrderController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
+            'status' => 'required',
         ]);
         $order = new Order();
         $order->date = $request->date;
+        $order->status = $request->status;
         $order->client_id = $client;
         $products = [];
 
@@ -39,6 +41,16 @@ class OrderController extends Controller
                 $order->product()->attach($product->id);
             }
         }
+    }
+
+    public function update(Request $request, $client)
+    {
+        $request->validate([
+            'status' => 'required',
+        ]);
+        $order = Order::findOrFail($request->id);
+        $order->status = $request->status;
+        $order->save();
     }
 
     public function show($client, $order)

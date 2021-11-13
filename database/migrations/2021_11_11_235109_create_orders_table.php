@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('client_id')->unsigned();
             $table->date('date');
+            $table->string('status');
 
             $table->foreign('client_id')->references('id')->on('clients');
 
